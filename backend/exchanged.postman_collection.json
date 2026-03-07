@@ -1,0 +1,612 @@
+{
+  "info": {
+    "name": "exchanged — Crypto Intelligence Platform",
+    "description": "Complete API collection for the exchanged backend.\n\n**Setup:**\n1. Set `baseUrl` variable to your server (default: http://localhost:5000)\n2. Register a user via Auth > Register\n3. The token is auto-saved to the `token` variable\n4. All protected endpoints use it automatically",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:5000",
+      "type": "string"
+    },
+    {
+      "key": "token",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Health",
+      "item": [
+        {
+          "name": "Health Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/health",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "health"]
+            },
+            "description": "Check if the API server is running."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Register",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const res = pm.response.json();",
+                  "if (res.success && res.data && res.data.token) {",
+                  "    pm.collectionVariables.set('token', res.data.token);",
+                  "    console.log('Token saved to collection variable');",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"hrishi@example.com\",\n  \"password\": \"securepass123\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/register",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "register"]
+            },
+            "description": "Register a new user. Token is auto-saved to collection variables."
+          }
+        },
+        {
+          "name": "Login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const res = pm.response.json();",
+                  "if (res.success && res.data && res.data.token) {",
+                  "    pm.collectionVariables.set('token', res.data.token);",
+                  "    console.log('Token saved to collection variable');",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"hrishi@example.com\",\n  \"password\": \"securepass123\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "login"]
+            },
+            "description": "Login with email and password. Token is auto-saved to collection variables."
+          }
+        },
+        {
+          "name": "Get Current User",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/me",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "me"]
+            },
+            "description": "Get the authenticated user's profile."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Markets",
+      "item": [
+        {
+          "name": "Get Top Markets",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/markets?vs_currency=usd&per_page=100&page=1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "markets"],
+              "query": [
+                { "key": "vs_currency", "value": "usd", "description": "Target currency (usd, eur, inr, etc.)" },
+                { "key": "per_page", "value": "100", "description": "Results per page (max 250)" },
+                { "key": "page", "value": "1", "description": "Page number" }
+              ]
+            },
+            "description": "Get top cryptocurrencies ranked by market cap. Includes price, volume, 24h change, sparkline."
+          }
+        },
+        {
+          "name": "Get Top Markets (INR)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/markets?vs_currency=inr&per_page=50&page=1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "markets"],
+              "query": [
+                { "key": "vs_currency", "value": "inr" },
+                { "key": "per_page", "value": "50" },
+                { "key": "page", "value": "1" }
+              ]
+            },
+            "description": "Get top 50 coins in INR."
+          }
+        },
+        {
+          "name": "Get Trending Coins",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/markets/trending",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "markets", "trending"]
+            },
+            "description": "Get trending coins on CoinGecko in the last 24 hours."
+          }
+        },
+        {
+          "name": "Get Global Market Data",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/markets/global",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "markets", "global"]
+            },
+            "description": "Get global crypto market stats — total market cap, 24h volume, BTC dominance, etc."
+          }
+        },
+        {
+          "name": "Search",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/markets/search?q=solana",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "markets", "search"],
+              "query": [
+                { "key": "q", "value": "solana", "description": "Search query (coin name, symbol, or exchange)" }
+              ]
+            },
+            "description": "Search for coins, categories, and exchanges."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Coins",
+      "item": [
+        {
+          "name": "Get Coin Details — Bitcoin",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/coins/bitcoin",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "coins", "bitcoin"]
+            },
+            "description": "Get full details for Bitcoin — price, market cap, supply, developer data, community data, tickers, links."
+          }
+        },
+        {
+          "name": "Get Coin Details — Ethereum",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/coins/ethereum",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "coins", "ethereum"]
+            },
+            "description": "Get full details for Ethereum."
+          }
+        },
+        {
+          "name": "Get Coin Details — Solana",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/coins/solana",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "coins", "solana"]
+            },
+            "description": "Get full details for Solana."
+          }
+        },
+        {
+          "name": "Get Coin Chart — 24h",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/coins/bitcoin/chart?vs_currency=usd&days=1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "coins", "bitcoin", "chart"],
+              "query": [
+                { "key": "vs_currency", "value": "usd" },
+                { "key": "days", "value": "1", "description": "Last 24 hours" }
+              ]
+            },
+            "description": "Get Bitcoin price chart data for the last 24 hours."
+          }
+        },
+        {
+          "name": "Get Coin Chart — 7d",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/coins/bitcoin/chart?vs_currency=usd&days=7",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "coins", "bitcoin", "chart"],
+              "query": [
+                { "key": "vs_currency", "value": "usd" },
+                { "key": "days", "value": "7", "description": "Last 7 days" }
+              ]
+            },
+            "description": "Get Bitcoin price chart data for the last 7 days."
+          }
+        },
+        {
+          "name": "Get Coin Chart — 30d",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/coins/bitcoin/chart?vs_currency=usd&days=30",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "coins", "bitcoin", "chart"],
+              "query": [
+                { "key": "vs_currency", "value": "usd" },
+                { "key": "days", "value": "30", "description": "Last 30 days" }
+              ]
+            },
+            "description": "Get Bitcoin price chart data for the last 30 days."
+          }
+        },
+        {
+          "name": "Get Coin Chart — 1 Year",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/coins/bitcoin/chart?vs_currency=usd&days=365",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "coins", "bitcoin", "chart"],
+              "query": [
+                { "key": "vs_currency", "value": "usd" },
+                { "key": "days", "value": "365", "description": "Last 1 year" }
+              ]
+            },
+            "description": "Get Bitcoin price chart data for the last year."
+          }
+        },
+        {
+          "name": "Get Coin Chart — Max",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/coins/bitcoin/chart?vs_currency=usd&days=max",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "coins", "bitcoin", "chart"],
+              "query": [
+                { "key": "vs_currency", "value": "usd" },
+                { "key": "days", "value": "max", "description": "All time" }
+              ]
+            },
+            "description": "Get Bitcoin all-time price chart data."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Exchanges",
+      "item": [
+        {
+          "name": "Get All Exchanges",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/exchanges?per_page=100&page=1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "exchanges"],
+              "query": [
+                { "key": "per_page", "value": "100", "description": "Results per page" },
+                { "key": "page", "value": "1", "description": "Page number" }
+              ]
+            },
+            "description": "Get list of exchanges ranked by volume and trust score."
+          }
+        },
+        {
+          "name": "Get Exchange — Binance",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/exchanges/binance",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "exchanges", "binance"]
+            },
+            "description": "Get details for Binance — trading pairs, volume, liquidity, trust score."
+          }
+        },
+        {
+          "name": "Get Exchange — Coinbase",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/exchanges/gdax",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "exchanges", "gdax"]
+            },
+            "description": "Get details for Coinbase Exchange (CoinGecko ID: gdax)."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Portfolio",
+      "item": [
+        {
+          "name": "Get My Portfolio",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/portfolio",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "portfolio"]
+            },
+            "description": "Get all coins in the authenticated user's portfolio."
+          }
+        },
+        {
+          "name": "Add Coin — Bitcoin",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"coinId\": \"bitcoin\",\n  \"amount\": 0.5,\n  \"buyPrice\": 40000\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/portfolio",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "portfolio"]
+            },
+            "description": "Add 0.5 BTC bought at $40,000 to portfolio."
+          }
+        },
+        {
+          "name": "Add Coin — Ethereum",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"coinId\": \"ethereum\",\n  \"amount\": 5,\n  \"buyPrice\": 2500\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/portfolio",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "portfolio"]
+            },
+            "description": "Add 5 ETH bought at $2,500 to portfolio."
+          }
+        },
+        {
+          "name": "Add Coin — Solana",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"coinId\": \"solana\",\n  \"amount\": 100,\n  \"buyPrice\": 25\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/portfolio",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "portfolio"]
+            },
+            "description": "Add 100 SOL bought at $25 to portfolio."
+          }
+        },
+        {
+          "name": "Update Portfolio Entry",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"amount\": 1.0,\n  \"buyPrice\": 45000\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/portfolio/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "portfolio", "1"]
+            },
+            "description": "Update portfolio entry ID 1 — change amount to 1.0 BTC at $45,000."
+          }
+        },
+        {
+          "name": "Remove Portfolio Entry",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/portfolio/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "portfolio", "1"]
+            },
+            "description": "Remove portfolio entry ID 1."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Alerts",
+      "item": [
+        {
+          "name": "Get My Alerts",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/alerts",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "alerts"]
+            },
+            "description": "Get all price alerts for the authenticated user."
+          }
+        },
+        {
+          "name": "Get Triggered Alerts",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/alerts/triggered",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "alerts", "triggered"]
+            },
+            "description": "Get only triggered (fired) alerts — acts as a notification inbox."
+          }
+        },
+        {
+          "name": "Create Alert — BTC Above $70k",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"coinId\": \"bitcoin\",\n  \"targetPrice\": 70000,\n  \"direction\": \"above\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/alerts",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "alerts"]
+            },
+            "description": "Alert me when Bitcoin goes above $70,000."
+          }
+        },
+        {
+          "name": "Create Alert — ETH Below $2000",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"coinId\": \"ethereum\",\n  \"targetPrice\": 2000,\n  \"direction\": \"below\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/alerts",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "alerts"]
+            },
+            "description": "Alert me when Ethereum drops below $2,000."
+          }
+        },
+        {
+          "name": "Create Alert — SOL Above $200",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"coinId\": \"solana\",\n  \"targetPrice\": 200,\n  \"direction\": \"above\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/alerts",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "alerts"]
+            },
+            "description": "Alert me when Solana goes above $200."
+          }
+        },
+        {
+          "name": "Delete Alert",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/alerts/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "alerts", "1"]
+            },
+            "description": "Delete alert ID 1."
+          }
+        }
+      ]
+    }
+  ]
+}
