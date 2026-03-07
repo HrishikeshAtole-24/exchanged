@@ -1,0 +1,133 @@
+.hero {
+  padding: var(--sp-2xl) 0;
+  text-align: center;
+}
+
+.heroTitle {
+  font-size: 2.5rem;
+  font-weight: 800;
+  line-height: 1.15;
+  margin-bottom: var(--sp-md);
+  letter-spacing: -1px;
+}
+
+.heroAccent {
+  color: var(--accent);
+}
+
+.heroSub {
+  font-size: 1.0625rem;
+  color: var(--text-secondary);
+  max-width: 600px;
+  margin: 0 auto var(--sp-xl);
+  line-height: 1.6;
+}
+
+.heroActions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-md);
+}
+
+/* ── Stats Row ── */
+.globalStats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--sp-md);
+  margin-bottom: var(--sp-2xl);
+}
+
+/* ── Trending Section ── */
+.trendingSection {
+  margin-bottom: var(--sp-2xl);
+}
+
+.trendingGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: var(--sp-md);
+}
+
+.trendingCard {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--sp-md);
+  display: flex;
+  align-items: center;
+  gap: var(--sp-md);
+  transition: all var(--transition-fast);
+  cursor: pointer;
+}
+
+.trendingCard:hover {
+  border-color: var(--border-hover);
+  background: var(--bg-hover);
+}
+
+.trendingRank {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  min-width: 20px;
+}
+
+.trendingIcon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.trendingInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.trendingName {
+  font-weight: 600;
+  font-size: 0.9375rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.trendingSym {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.trendingPrice {
+  text-align: right;
+}
+
+.trendingPriceValue {
+  font-weight: 600;
+  font-size: 0.875rem;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Top movers ── */
+.topSection {
+  margin-bottom: var(--sp-2xl);
+}
+
+@media (max-width: 768px) {
+  .heroTitle {
+    font-size: 1.75rem;
+  }
+
+  .heroSub {
+    font-size: 0.9375rem;
+  }
+
+  .heroActions {
+    flex-direction: column;
+  }
+
+  .trendingGrid {
+    grid-template-columns: 1fr;
+  }
+}

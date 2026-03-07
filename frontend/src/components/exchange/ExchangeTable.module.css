@@ -1,0 +1,62 @@
+.tableWrap {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.tableScroll {
+  overflow-x: auto;
+}
+
+.rankCol {
+  width: 50px;
+  color: var(--text-muted);
+  font-size: 0.8125rem;
+}
+
+.nameCol {
+  min-width: 200px;
+}
+
+.exchangeLink {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-sm);
+}
+
+.exchangeLink:hover .exchangeName {
+  color: var(--accent);
+}
+
+.exchangeImg {
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-sm);
+}
+
+.exchangeName {
+  font-weight: 600;
+  transition: color var(--transition-fast);
+}
+
+.trustScore {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.trustHigh   { background: var(--green); }
+.trustMedium { background: var(--yellow); }
+.trustLow    { background: var(--red); }
+
+.volumeCol {
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 768px) {
+  .hideOnMobile {
+    display: none;
+  }
+}

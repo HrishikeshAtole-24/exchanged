@@ -1,0 +1,56 @@
+frontend
+│
+├── src
+│
+│   ├── app
+│   │
+│   │    page.js
+│   │
+│   │    markets
+│   │      page.js
+│   │
+│   │    coins
+│   │      [id]
+│   │        page.js
+│   │
+│   │    exchanges
+│   │      page.js
+│   │
+│   │    portfolio
+│   │      page.js
+│
+│   ├── components
+│   │
+│   │    charts
+│   │       priceChart.jsx
+│   │       marketChart.jsx
+│   │
+│   │    market
+│   │       marketTable.jsx
+│   │
+│   │    coin
+│   │       coinHeader.jsx
+│   │
+│   │    exchange
+│   │       exchangeTable.jsx
+│
+│   ├── services
+│   │     apiClient.js
+│   │     market.service.js
+│   │     coin.service.js
+│
+│   ├── hooks
+│   │     useMarkets.js
+│   │     useCoin.js
+│
+│   ├── store
+│   │     portfolioStore.js
+│
+│   ├── utils
+│   │     formatCurrency.js
+│
+│   └── styles
+│        globals.css
+│
+├── public
+└── package.json

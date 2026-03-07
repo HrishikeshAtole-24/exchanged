@@ -1,0 +1,106 @@
+.coinHeader {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-lg);
+  margin-bottom: var(--sp-xl);
+}
+
+.coinIcon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.coinInfo {
+  flex: 1;
+}
+
+.coinTopRow {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-sm);
+  flex-wrap: wrap;
+}
+
+.coinTitle {
+  font-size: 1.75rem;
+  font-weight: 800;
+}
+
+.coinSym {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  font-weight: 600;
+  background: var(--bg-tertiary);
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+}
+
+.coinRank {
+  font-size: 0.75rem;
+  font-weight: 600;
+  background: var(--accent-muted);
+  color: var(--accent);
+  padding: 2px 8px;
+  border-radius: 9999px;
+}
+
+.priceRow {
+  display: flex;
+  align-items: baseline;
+  gap: var(--sp-md);
+  margin-top: var(--sp-sm);
+}
+
+.priceMain {
+  font-size: 2rem;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+.priceChange {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.metaGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: var(--sp-md);
+  margin-top: var(--sp-lg);
+}
+
+.metaItem {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.metaLabel {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+}
+
+.metaValue {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 768px) {
+  .coinHeader {
+    flex-direction: column;
+  }
+
+  .priceMain {
+    font-size: 1.5rem;
+  }
+
+  .metaGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
